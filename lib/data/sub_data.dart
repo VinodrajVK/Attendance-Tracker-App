@@ -21,3 +21,32 @@ class Subject extends HiveObject {
   @HiveField(5)
   int percent = 0;
 }
+
+@HiveType(typeId: 2)
+enum Semesters {
+  @HiveField(0)
+  physicscycle,
+  @HiveField(1)
+  chemistrycycle,
+  @HiveField(2)
+  third,
+  @HiveField(3)
+  fourth,
+  @HiveField(4)
+  fifth,
+  @HiveField(5)
+  sixth,
+  @HiveField(6)
+  seventh,
+  @HiveField(7)
+  eighth,
+}
+
+@HiveType(typeId: 1)
+class User extends HiveObject {
+  @HiveField(0)
+  late String name;
+
+  @HiveField(1)
+  late Semesters semester;
+}

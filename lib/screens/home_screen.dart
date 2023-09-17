@@ -50,12 +50,50 @@ class _HomeScreenState extends State<HomeScreen> {
               fontWeight: FontWeight.bold),
         ),
       ),
-      body: ValueListenableBuilder(
-          valueListenable: Boxes.getSubjects().listenable(),
-          builder: (context, box, _) {
-            final subjects = box.values.toList().cast<Subject>();
-            return buildContent(subjects);
-          }),
+      body: Column(
+        children: [
+          ValueListenableBuilder(
+              valueListenable: Boxes.getUser().listenable(),
+              builder: (context, box, _) {
+                final name = box.values.first.name;
+                final sem = box.values.first.semester;
+                return buildUserContent(name, sem);
+              }),
+          const SizedBox(
+            height: 20,
+          ),
+          ValueListenableBuilder(
+              valueListenable: Boxes.getSubjects().listenable(),
+              builder: (context, box, _) {
+                final subjects = box.values.toList().cast<Subject>();
+                return buildContent(subjects);
+              }),
+        ],
+      ),
+    );
+  }
+
+  Widget buildUserContent(String name, Semesters semester) {
+    return Column(
+      children: [
+        Text(
+          'NAME : ${name.toUpperCase()}',
+          textAlign: TextAlign.center,
+          style: Theme.of(context).textTheme.headlineSmall!.copyWith(
+              color: Theme.of(context).colorScheme.primary,
+              fontWeight: FontWeight.bold),
+        ),
+        const SizedBox(
+          height: 10,
+        ),
+        Text(
+          'SEMESTER : ${semester.name.toUpperCase()}',
+          textAlign: TextAlign.center,
+          style: Theme.of(context).textTheme.bodyLarge!.copyWith(
+              color: Theme.of(context).colorScheme.primary,
+              fontWeight: FontWeight.bold),
+        ),
+      ],
     );
   }
 
@@ -66,12 +104,12 @@ class _HomeScreenState extends State<HomeScreen> {
           Text(
             'Current Status',
             textAlign: TextAlign.center,
-            style: Theme.of(context).textTheme.headlineLarge!.copyWith(
+            style: Theme.of(context).textTheme.headlineSmall!.copyWith(
                 color: Theme.of(context).colorScheme.primary,
                 fontWeight: FontWeight.bold),
           ),
           const SizedBox(
-            height: 25,
+            height: 15,
           ),
           ...subjects.map((sub) => SubSummary(
                 sub: sub,

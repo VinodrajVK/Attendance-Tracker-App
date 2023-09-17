@@ -3,4 +3,5 @@ import 'package:hive/hive.dart';
 
 class Boxes {
   static Box<Subject> getSubjects() => Hive.box<Subject>('subBox');
+  static Box<User> getUser() => Hive.box<User>('userBox');
 }
